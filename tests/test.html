@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Carousel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .carousel-container {
+            width: 60%; /* Set width of carousel */
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%; /* Ensure each card takes full width */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            flex-shrink: 0;
+        }
+        
+        .card-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        
+        .dots {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .dot.active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container" id="carouselContainer">
+        <div class="carousel" id="carousel"></div>
+    </div>
+    <div class="dots" id="dots"></div>
+    
+    <script>
+        const accounts = [
+            { title: "Standard Account", id: "7f3c8e90-1a2b-4c5d-8e6f-9a1b2c3d4e5f", balance: 435.10, currency: "EUR" },
+            { title: "Saving Account", id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", balance: 2000.10, currency: "ALL" },
+            { title: "Saving Account", id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", balance: 2000.10, currency: "ALL" },
+            { title: "Saving Account", id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", balance: 2000.10, currency: "ALL" },
+            { title: "Saving Account", id: "f47ac10b-58cc-4372-a567-0e02b2c3d479", balance: 2000.10, currency: "ALL" }
+
+        ];
+        
+        const carousel = document.getElementById("carousel");
+        const dotsContainer = document.getElementById("dots");
+        let currentIndex = 0;
+
+        function renderCarousel() {
+            accounts.forEach((account, index) => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <img src="https://cdn-icons-png.flaticon.com/512/8345/8345328.png" alt="User Image" class="card-img">
+                    <h3 class="card-title">${account.title}</h3>
+                    <p class="number-info">${account.id}</p>
+                    <p class="card-info">Balance: ${account.balance}</p>
+                    <p class="card-info">Currency: ${account.currency}</p>
+                `;
+                carousel.appendChild(card);
+
+                const dot = document.createElement("span");
+                dot.classList.add("dot");
+                if (index === 0) dot.classList.add("active");
+                dot.dataset.index = index;
+                dot.addEventListener("click", () => {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            adjustCarouselWidth();
+        }
+        
+        function adjustCarouselWidth() {
+            const containerWidth = document.querySelector(".carousel-container").offsetWidth;
+            const totalSlides = accounts.length;
+
+            document.querySelectorAll(".card").forEach(card => {
+                card.style.width = `${containerWidth }px`; // Each card takes full width of the container
+            });
+
+            carousel.style.width = `${containerWidth * totalSlides}px`; // Total carousel width
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const containerWidth = document.querySelector(".carousel-container").offsetWidth;
+            const offset = -currentIndex * containerWidth; 
+            carousel.style.transform = `translateX(${offset}px)`;
+            
+            document.querySelectorAll(".dot").forEach(dot => dot.classList.remove("active"));
+            document.querySelector(`.dot[data-index='${currentIndex}']`).classList.add("active");
+        }
+        
+        let startX = 0;
+        document.getElementById("carouselContainer").addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.getElementById("carouselContainer").addEventListener("touchend", (e) => {
+            let endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) {
+                currentIndex = Math.min(currentIndex + 1, accounts.length - 1);
+            } else if (endX - startX > 50) {
+                currentIndex = Math.max(currentIndex - 1, 0);
+            }
+            updateCarousel();
+        });
+
+        window.addEventListener("resize", adjustCarouselWidth);
+        
+        renderCarousel();
+    </script>
+</body>
+</html>

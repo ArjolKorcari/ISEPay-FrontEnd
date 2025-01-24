@@ -4,36 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/accountCard.css">
+    <link rel="stylesheet" href="styles/menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
     <script defer src="scripts.js"></script>
 </head>
 <body>
     
     <div id="dashboard">
         <aside class="sidebar">
-            <h2>Dashboard</h2>
-            <ul>
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#history">Transaction History</a></li>
-                <li><a href="#transfer">Transfer Funds</a></li>
-                <li><a href="#currencyConverter">Currency Converter</a></li>
-                <li><a href="#logout" id="logoutButton">Logout</a></li>
-            </ul>
+            <br>
+            <h2 style="color: white;">Dashboard</h2>
+            <div>
+                <ul>
+                    <li><a href="#profile"><i class="fa-regular fa-user"></i> Profile</a></li>
+                    <li><a href="#history"><i class="fa-solid fa-bars"></i> Transaction History</a></li>
+                    <li><a href="#transfer"><i class="fa-solid fa-money-bill-transfer"></i> Transfer Funds</a></li>
+                    <li><a href="#currencyConverter"><i class="fa-solid fa-coins"></i> Currency Converter</a></li>
+                    <li><a href="#logout" id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                </ul>
+            </div>
         </aside>
         <main class="content">
-            <section id="profile">
-                <h2>User Profile</h2>
+            <div class="header-container">
+                <h2 class="Welcome-header" id="profileName">Welcome, User</h2>
                 <p>Manage your account details and settings here.</p>
-                <form id="profileForm">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <button type="submit">Update Profile</button>
-                </form>
-            </section>
+                <div class="header-line"></div>
+            </div>
+            
+           <div>
+                <div class="carousel-container" id="carouselContainer">
+                    <div class="carousel" id="carousel"></div>
+                </div>
+                <div class="dots" id="dots">
+                </div>
+            </div>
+             <!-- Example single danger button -->
+   
+        <div class="btn-group add-account-button ">
+            <button id="dropdownButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Add Account
+            </button>
+            <ul class="dropdown-menu" id="dropdownMenu">
+                <li class="dropdown-header">Select Currency</li>
+                <li><a class="dropdown-item currency" href="#">EUR</a></li>
+                <li><a class="dropdown-item currency" href="#">ALL</a></li>
+                <li><a class="dropdown-item currency" href="#">GBP</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-header">Select Account Type</li>
+                <li><a class="dropdown-item type" href="#">SAVING</a></li>
+                <li><a class="dropdown-item type" href="#">STANDARD</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <button id="addButton" class="btn btn-primary w-100" style="display: none;">Continue</button>
+                </li>
+            </ul>
+        </div>
+      <hr>
+  
+
+        
             <section id="history">
-                <h2>Transaction History</h2>
+                <h2><i class="fa-solid fa-arrows-turn-to-dots"></i> Transaction History</h2>
                 <p>View all your past transactions here.</p>
                 <table id="transactionTable">
                     <thead>
@@ -97,10 +135,19 @@
         </main>
     </div>
 
+
+    <script src="api/accountService.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
     <script>
-        document.getElementById('logoutButton').addEventListener('click', () => {
-            alert('Logged out successfully!');
-        });
+      document.getElementById('logoutButton').addEventListener('click', () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('FullName');
+
+    window.location.href = 'LoginComponent.html';
+});
+
 
         const transferForm = document.getElementById('transferForm');
         transferForm.addEventListener('submit', (event) => {
@@ -132,29 +179,29 @@
                 });
         });
 
-        function loadTransactionHistory() {
-            fetch('/accounts/history')
-                .then((response) => response.json())
-                .then((data) => {
-                    const tableBody = document.querySelector('#transactionTable tbody');
-                    tableBody.innerHTML = '';
+        // function loadTransactionHistory() {
+        //     fetch('/accounts/history')
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             const tableBody = document.querySelector('#transactionTable tbody');
+        //             tableBody.innerHTML = '';
 
-                    data.transactions.forEach((transaction) => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${transaction.date}</td>
-                            <td>${transaction.recipient}</td>
-                            <td>${transaction.amount}</td>
-                            <td>${transaction.currency}</td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('An error occurred while loading transaction history.');
-                });
-        }
+        //             data.transactions.forEach((transaction) => {
+        //                 const row = document.createElement('tr');
+        //                 row.innerHTML = `
+        //                     <td>${transaction.date}</td>
+        //                     <td>${transaction.recipient}</td>
+        //                     <td>${transaction.amount}</td>
+        //                     <td>${transaction.currency}</td>
+        //                 `;
+        //                 tableBody.appendChild(row);
+        //             });
+        //         })
+        //         .catch((error) => {
+        //             console.error('Error:', error);
+        //             alert('An error occurred while loading transaction history.');
+        //         });
+        // }
 
         document.addEventListener('DOMContentLoaded', () => {
             loadTransactionHistory();
@@ -225,5 +272,13 @@
                 });
         });
     </script>
+
+<script>
+    // Get the full name from localStorage
+    const fullName = localStorage.getItem('FullName');
+    // Update the profileName element
+    const profileNameElement = document.getElementById('profileName');
+    profileNameElement.textContent = fullName ? `Welcome, ${fullName}` : 'Welcome, User';
+</script>
 </body>
 </html>

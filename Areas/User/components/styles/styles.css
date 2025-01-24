@@ -5,12 +5,44 @@ body {
     margin: 0;
     padding: 0;
     color: #2c3e50;
+    overflow: hidden; 
+   
 }
 
+.selected {
+    background-color: #777b80 !important;
+    color: white !important;
+}
+
+.btn-primary{
+    --bs-btn-bg: #777b80;
+
+}
+.add-account-button{
+    margin-right: 90%;
+}
+
+
+
 h2 {
+    font-family: 'Lora', serif;
     color: #2c3e50;
     margin-bottom: 20px;
 }
+.Welcome-header {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    background: linear-gradient(to right, #1abc9c, #16a085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: capitalize;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+
 
 /* Form Styles */
 .form-container {
@@ -59,51 +91,17 @@ button:hover {
     background-color: #f4f4f9;
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin-bottom: 15px;
-}
-
-.sidebar ul li a {
-    display: block;
-    padding: 10px 15px;
-    color: #ecf0f1;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
-.sidebar ul li a:hover {
-    background-color: #34495e;
-}
 
 /* Content Area */
 .content {
     flex-grow: 1;
-    padding: 40px;
+    padding: 20px;
     background-color: #ffffff;
     overflow-y: auto;
 }
+.content::-webkit-scrollbar {
+    display: none;
+  }
 
 /* Profile Section */
 #profile {
@@ -294,21 +292,5 @@ button:hover {
     background-color: #c0392b;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-    }
 
-    .content {
-        padding: 20px;
-    }
 
-    #profileForm input, #transferForm input, #transferForm select, #currencyConverter input, #currencyConverter select {
-        padding: 8px;
-    }
-
-    #profileForm button, #transferForm button, #currencyConverter button {
-        padding: 10px 15px;
-    }
-}
