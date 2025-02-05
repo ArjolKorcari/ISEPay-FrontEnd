@@ -7,12 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/accountCard.css">
     <link rel="stylesheet" href="styles/menu.css">
+    <link rel="stylesheet" href="styles/pagination.css">
     <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+  <link rel="stylesheet" href="styles/transfer.css">
     <script defer src="scripts.js"></script>
 </head>
 <body>
@@ -70,39 +71,61 @@
   
 
         
-            <section id="history">
-                <h2><i class="fa-solid fa-arrows-turn-to-dots"></i> Transaction History</h2>
-                <p>View all your past transactions here.</p>
-                <table id="transactionTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Recipient</th>
-                            <th>Amount</th>
-                            <th>Currency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Transaction rows will be added here dynamically -->
-                    </tbody>
-                </table>
-            </section>
+      <section id="history">
+        <h2><i class="fa-solid fa-arrows-turn-to-dots"></i> Transaction History</h2>
+        <p>View all your past transactions here.</p>
+    
+        <table id="transactionTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Recipient</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Transaction rows will be added here dynamically -->
+            </tbody>
+        </table>
+    
+        <!-- Pagination -->
+        <div id="pagination">
+            <button class="page-btn" data-page="1">1</button>
+            <button class="page-btn" data-page="2">2</button>
+            <button class="page-btn" data-page="3">3</button>
+            <button class="page-btn" data-page="4">4</button>
+            <button class="page-btn" data-page="5">5</button>
+            <!-- Add more buttons dynamically if needed -->
+        </div>
+    </section>
+    
+
+            <hr>
             <section id="transfer">
                 <h2>Transfer Funds</h2>
                 <form id="transferForm">
-                    <label for="recipient">Recipient:</label>
-                    <input type="text" id="recipient" name="recipient" required>
-                    <label for="amount">Amount:</label>
-                    <input type="number" id="amount" name="amount" required>
-                    <label for="currency">Currency:</label>
-                    <select id="currency" name="currency" required>
-                        <option value="ALL">ALL</option>
-                        <option value="EUR">EUR</option>
-                        <option value="USD">USD</option>
-                    </select>
-                    <button type="submit">Transfer</button>
+                    <div class="form-group">
+                        <label for="fromAccount">From Account Number</label>
+                        <input type="text" id="fromAccount" name="fromAccount" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="toAccount">To Account Number</label>
+                        <input type="text" id="toAccount" name="toAccount" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" name="amount" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <button type="submit">Transfer</button>
+                    </div>
                 </form>
             </section>
+            
 
             <!-- Currency Converter Section -->
             <section id="currencyConverter">
@@ -139,7 +162,102 @@
     <script src="api/accountService.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-
+    <script>
+        // Example transaction data
+        const transactions = [
+            { date: "2025-02-01", recipient: "Arjol Korcari", amount: 100.00, type: "Debit" },
+            { date: "2025-02-02", recipient: "Albi Bylykbashi", amount: 150.00, type: "Credit" },
+            { date: "2025-02-02", recipient: "Anxhelo Kermezi", amount: 150.99, type: "Credit" },
+            { date: "2025-02-02", recipient: "Antoneta Gjana", amount: 152.12, type: "Credit" },
+            { date: "2025-02-03", recipient: "Kevin Petani", amount: 211.00, type: "Debit" },
+            { date: "2025-02-04", recipient: "Lorenc Matija", amount: 90.50, type: "Debit" },
+            { date: "2025-02-05", recipient: "Amik Ekra", amount: 123.80, type: "Credit" },
+            { date: "2025-02-06", recipient: "Flora Dajti", amount: 250.30, type: "Debit" },
+            { date: "2025-02-07", recipient: "Ervin Koleci", amount: 195.00, type: "Credit" },
+            { date: "2025-02-08", recipient: "Juliana Kaba", amount: 185.25, type: "Debit" },
+            
+        ];
+    
+        const transactionsPerPage = 5; // Number of transactions per page
+        let currentPage = 1;
+    
+        // Function to populate the table with transactions for the current page
+        function populateTransactionTable() {
+            const tableBody = document.querySelector("#transactionTable tbody");
+    
+            // Clear any existing rows in the table body
+            tableBody.innerHTML = "";
+    
+            // Calculate the start and end index for the current page
+            const startIndex = (currentPage - 1) * transactionsPerPage;
+            const endIndex = startIndex + transactionsPerPage;
+            
+            // Slice the transactions array to show only the transactions for the current page
+            const currentTransactions = transactions.slice(startIndex, endIndex);
+    
+            // Loop through each transaction and create a table row
+            currentTransactions.forEach(transaction => {
+                const row = document.createElement("tr");
+    
+                // Create and append cells for each transaction property
+                const dateCell = document.createElement("td");
+                dateCell.textContent = transaction.date;
+                row.appendChild(dateCell);
+    
+                const recipientCell = document.createElement("td");
+                recipientCell.textContent = transaction.recipient;
+                row.appendChild(recipientCell);
+    
+                const amountCell = document.createElement("td");
+                amountCell.textContent = transaction.amount;
+                row.appendChild(amountCell);
+    
+                const typeCell = document.createElement("td");
+                typeCell.textContent = transaction.type;
+                row.appendChild(typeCell);
+    
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+    
+            // Update the pagination buttons
+            updatePagination();
+        }
+    
+        // Function to update the pagination buttons
+        function updatePagination() {
+            const paginationContainer = document.querySelector("#pagination");
+            const totalPages = Math.ceil(transactions.length / transactionsPerPage);
+    
+            // Clear existing pagination buttons
+            paginationContainer.innerHTML = "";
+    
+            // Create pagination buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.textContent = i;
+                button.classList.add("page-btn");
+                
+                // Add active class to the current page button
+                if (i === currentPage) {
+                    button.classList.add("active");
+                }
+    
+                // Add event listener to switch pages
+                button.addEventListener("click", () => {
+                    currentPage = i;
+                    populateTransactionTable();
+                });
+    
+                paginationContainer.appendChild(button);
+            }
+        }
+    
+        // Call the function to populate the table when the page is loaded
+        window.onload = populateTransactionTable;
+    </script>
+    
+    
     <script>
       document.getElementById('logoutButton').addEventListener('click', () => {
     localStorage.removeItem('accessToken');
@@ -179,29 +297,7 @@
                 });
         });
 
-        // function loadTransactionHistory() {
-        //     fetch('/accounts/history')
-        //         .then((response) => response.json())
-        //         .then((data) => {
-        //             const tableBody = document.querySelector('#transactionTable tbody');
-        //             tableBody.innerHTML = '';
-
-        //             data.transactions.forEach((transaction) => {
-        //                 const row = document.createElement('tr');
-        //                 row.innerHTML = `
-        //                     <td>${transaction.date}</td>
-        //                     <td>${transaction.recipient}</td>
-        //                     <td>${transaction.amount}</td>
-        //                     <td>${transaction.currency}</td>
-        //                 `;
-        //                 tableBody.appendChild(row);
-        //             });
-        //         })
-        //         .catch((error) => {
-        //             console.error('Error:', error);
-        //             alert('An error occurred while loading transaction history.');
-        //         });
-        // }
+       
 
         document.addEventListener('DOMContentLoaded', () => {
             loadTransactionHistory();
