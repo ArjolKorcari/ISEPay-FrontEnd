@@ -1,0 +1,32 @@
+#pagination {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    gap: 10px; /* Space between buttons */
+}
+
+.page-btn {
+    background-color: #4CAF50;
+    width: 10%;
+    height: 5%;
+    color: white;
+    padding: 3px ;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.page-btn:hover {
+    background-color: #45a049;
+}
+
+.page-btn.active {
+    background-color: #333;
+}
+
+.page-btn:focus {
+    outline: none;
+}

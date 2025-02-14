@@ -1,0 +1,295 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+ 
+   
+}
+
+.selected {
+    background-color: #777b80 !important;
+    color: white !important;
+}
+
+.btn-primary{
+    --bs-btn-bg: #777b80;
+
+}
+.add-account-button{
+    margin-right: 90%;
+}
+
+
+
+h2 {
+    font-family: 'Lora', serif;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+.Welcome-header {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    background: linear-gradient(to right, #1abc9c, #16a085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: capitalize;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+
+
+/* Form Styles */
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    margin: 50px auto;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #34495e;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Dashboard Styles */
+#dashboard {
+    display: flex;
+    background-color: #f4f4f9;
+}
+
+
+/* Content Area */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+.content::-webkit-scrollbar {
+    display: none;
+  }
+
+/* Profile Section */
+#profile {
+    margin-bottom: 40px;
+}
+
+#profile .section-header {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#profile p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+#profileForm {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#profileForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#profileForm input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+}
+
+#profileForm button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#profileForm button:hover {
+    background-color: #2980b9;
+}
+
+/* Transaction History */
+#history .section-header {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#transactionTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#transactionTable thead {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+#transactionTable th, #transactionTable td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+#transactionTable tr:hover {
+    background-color: #f4f4f9;
+}
+
+/* Transfer Funds Section */
+#transfer {
+    margin-top: 40px;
+}
+
+#transfer .section-header {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#transferForm {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#transferForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#transferForm input, #transferForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+}
+
+#transferForm button {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#transferForm button:hover {
+    background-color: #219150;
+}
+
+/* Currency Converter Styles */
+#currencyConverter {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+#currencyConverter h3 {
+    font-size: 24px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+#currencyConverter .input-group {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+#currencyConverter .input-group input,
+#currencyConverter .input-group select {
+    flex: 1;
+    padding: 12px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #bdc3c7;
+    font-size: 16px;
+}
+
+#currencyConverter button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#currencyConverter button:hover {
+    background-color: #2980b9;
+}
+
+#currencyConverter .result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #34495e;
+}
+
+/* Logout button styles */
+#logoutButton {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#logoutButton:hover {
+    background-color: #c0392b;
+}
+
+
+

@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+
+    justify-content: center;
+    align-items: center;
+ 
+    margin: 0;
+}
+
+#transfer {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#transfer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #4CAF50;
+    background-color: #fff;
+    outline: none;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-group button:hover {
+    background-color: #45a049;
+}
+
+.form-group button:focus {
+    outline: none;
+}
+
+@media (max-width: 480px) {
+    #transfer {
+        width: 90%;
+    }
+}

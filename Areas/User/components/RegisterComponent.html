@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles/RegisterComponent.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+    <!-- Registration Step 1 -->
+    <div id="register-step1" class="form-container active">
+        <h2>Register</h2>
+        <form id="register-form-step1" novalidate>
+            <label for="reg-email"><i class="fa-regular fa-envelope"></i> Email:</label><br>
+            <input class="inputWidth" type="email" id="reg-email" placeholder="Enter your email" required>
+<br>
+            <label for="phone-number"><i class="fa-solid fa-phone"></i> Phone Number:</label><br>
+            <input   class="inputWidth" type="tel" id="phone-number" placeholder="Enter your phone number" required>
+
+            <button  class="register-button" type="submit">Next</button>
+            <p id="step1-error-message" class="error-message">Please fill in all fields correctly.</p>
+        </form>
+
+        <p>Already have an account? <a href="LoginComponent.html">Log in here</a></p>
+
+    </div>
+
+    <!-- OTP Validation Form -->
+    <div id="otp-validation" class="form-container">
+        <h2> <i class="fa-solid fa-check"></i> Validate OTP</h2>
+        <form id="otp-form" novalidate>
+            <label for="otp-code">Enter OTP Code:</label>
+            <input class="inputWidth" type="text" id="otp-code" placeholder="Enter the OTP sent to your phone/email" required>
+            <button class="register-button" type="submit">Validate</button>
+            <p id="otp-error-message" class="error-message">Invalid OTP. Please try again.</p>
+        </form>
+    </div>
+
+    <!-- Registration Step 2 -->
+    <div id="register-step2" class="form-container">
+        <h2>Create Account</h2>
+        <form id="register-form-step2" novalidate>
+            <br>
+            <label for="fullname"><i class="fa-regular fa-user"></i> Full Name:</label>
+            <br>
+            <input class="inputWidth" type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+        <br>
+        <div>
+            <label for="cardId"><i class="fa-solid fa-id-card"></i> Card ID:</label>
+        </div>
+        <input class="inputWidth" type="text" id="cardId" name="cardId" placeholder="Enter your Card ID" required>
+
+           
+        <br>
+            <label for="reg-password"><i class="fa-solid fa-lock"></i> Password:</label>
+            <input class="inputWidth" type="password" id="reg-password" name="password" placeholder="Create a password" required>
+        <br>
+            <label for="confirm-password"><i class="fa-solid fa-lock"></i> Confirm Password:</label>
+            <input class="inputWidth" type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
+        <br>
+            <label for="gender"><i class="fa-solid fa-venus-mars"></i> Gender:</label>
+            <br>
+            <select class="inputWidth" id="gender" name="gender" required>
+                <option value="" disabled selected> Select your gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        <br>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+
+    <script src="api/register.js"></script>
+</body>
+</html>

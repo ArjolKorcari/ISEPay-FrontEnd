@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles/LoginComponent.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+    <div class="login-container">
+        <!-- Header -->
+        <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Please enter your credentials to access your account.</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage" style="display: none;">
+            Authentication Failed: Invalid Credentials
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label for="login-email"><i class="fa-regular fa-envelope"></i> Email</label>
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password"><i class="fa-solid fa-lock"></i> Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+            </div>
+
+                <button class="colorButton  " type="submit">Login</button>
+            
+            
+        </form>
+
+        
+    </div>
+
+    <script src="api/login.js"></script>
+</body>
+</html>

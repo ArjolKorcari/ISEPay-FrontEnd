@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/wallet.css">
+    <title>Agent Dashboard</title>
+</head>
+<body>
+    <div class="header-buttons">
+        <button onclick="viewProfile()">Profile</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="dashboard">
+        <!-- Header section with profile and logout buttons -->
+        <!-- Dashboard Form section -->
+        <h2>Agent Dashboard</h2>
+        <input class="dashboard-input" type="text" id="userName" placeholder="Enter User Name">
+        <input class="dashboard-input" type="text" id="cardId" placeholder="Enter Card ID">
+        <button onclick="fetchWallets()">View Wallets</button>
+
+        <div class="wallet-info" id="walletInfo">
+            <h3>User Wallets</h3>
+            <div id="wallets"></div>
+        </div>
+
+        <input class="dashboard-input" type="text" id="walletNumber" placeholder="Enter Wallet Number">
+        <input class="dashboard-input" type="number" id="amount" placeholder="Enter Amount">
+        <button onclick="deposit()">Deposit</button>
+        <button class="withdraw" onclick="withdraw()">Withdraw</button>
+    </div>
+
+    <script>
+        let wallets = [];
+        
+        // Logout function
+        function logout() {
+            // Clear user session or localStorage (you can modify this depending on your app's logic)
+            localStorage.clear(); // Clears the localStorage (for example: stored token, user data)
+            alert("You have been logged out.");
+            window.location.href = "login.html"; // Redirect to login page after logout
+        }
+
+        // Profile function
+        function viewProfile() {
+            // You can retrieve user profile info from localStorage or API
+            let userName = localStorage.getItem("userName") || "Guest";  // Example: Retrieve from localStorage
+            alert(`Profile Information:\nUsername: ${userName}`);
+            // You can enhance this with more detailed user info or a dedicated profile page
+        }
+
+        function fetchWallets() {
+            let userName = document.getElementById("userName").value;
+            let cardId = document.getElementById("cardId").value;
+            if (userName && cardId) {
+                wallets = [
+                    { number: "1234567890", balance: 1200 },
+                    { number: "0987654321", balance: 2500 }
+                ];
+                displayWallets(wallets);
+            } else {
+                alert("Please enter both User Name and Card ID.");
+            }
+        }
+
+        function displayWallets(wallets) {
+            let walletsContainer = document.getElementById("wallets");
+            walletsContainer.innerHTML = "";
+            wallets.forEach(wallet => {
+                let walletDiv = document.createElement("div");
+                walletDiv.classList.add("wallet");
+                walletDiv.innerHTML = `<p><strong>Wallet Number:</strong> ${wallet.number}</p>
+                                      <p><strong>Balance:</strong> $<span id="balance-${wallet.number}">${wallet.balance}</span></p>`;
+                walletsContainer.appendChild(walletDiv);
+            });
+        }
+
+        function deposit() {
+            let amount = parseFloat(document.getElementById("amount").value);
+            let walletNumber = document.getElementById("walletNumber").value;
+            let wallet = wallets.find(w => w.number === walletNumber);
+            if (wallet && amount > 0) {
+                wallet.balance += amount;
+                updateBalance(walletNumber, wallet.balance);
+                alert("Deposit successful!");
+            } else {
+                alert("Invalid wallet number or amount.");
+            }
+        }
+
+        function withdraw() {
+            let amount = parseFloat(document.getElementById("amount").value);
+            let walletNumber = document.getElementById("walletNumber").value;
+            let wallet = wallets.find(w => w.number === walletNumber);
+            if (wallet && amount > 0 && amount <= wallet.balance) {
+                wallet.balance -= amount;
+                updateBalance(walletNumber, wallet.balance);
+                alert("Withdrawal successful!");
+            } else {
+                alert("Invalid wallet number or insufficient funds.");
+            }
+        }
+
+        function updateBalance(walletNumber, newBalance) {
+            document.getElementById(`balance-${walletNumber}`).textContent = newBalance;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+
+  <!-- Sidebar menu -->
+  <aside>
+    <h2>Admin Menu</h2>
+    <ul>
+      <li onclick="filterUsers('pending')">Pending Users</li>
+      <li onclick="filterUsers('APPROVED')">Active Users</li>
+      <li onclick="filterUsers('Frozen')">Deleted Users</li>
+      <li onclick="filterUsers('ALL')">All Users</li>
+    </ul>
+  </aside>
+
+  <!-- Main content area -->
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Card ID</th>
+          <th>Picture</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="user-table-body">
+        <!-- User data will be inserted here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="api/users.js"></script>
+
+</body>
+</html>
