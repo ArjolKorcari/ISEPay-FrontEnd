@@ -34,6 +34,7 @@ h2 {
     font-weight: bold;
     color: #2c3e50;
     background: linear-gradient(to right, #1abc9c, #16a085);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: capitalize;
