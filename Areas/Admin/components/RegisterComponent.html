@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Step 1: Role Selection -->
+        <div id="step1" class="step active">
+            <h2>Select Role</h2>
+            <button class="role-btn" id="admin-btn">Admin</button>
+            <button class="role-btn" id="agent-btn">Agent</button>
+            <p id="step1-error-message" class="error-message">Please select a role.</p>
+        </div>
+
+        <!-- Step 2: Enter Email & Phone -->
+        <div id="step2" class="step">
+            <h2>Enter Email & Phone</h2>
+            <form id="register-form-step2">
+                <input type="email" id="reg-email" placeholder="Email" required>
+                <input type="text" id="phone-number" placeholder="Phone Number" required>
+                <button type="submit">Send OTP</button>
+            </form>
+            <p id="step2-error-message" class="error-message">Error sending OTP. Try again.</p>
+        </div>
+
+        <!-- Step 3: OTP Verification -->
+        <div id="step3" class="step">
+            <h2>Verify OTP</h2>
+            <form id="otp-form">
+                <input type="text" id="otp-code" placeholder="Enter OTP" required>
+                <button type="submit">Verify OTP</button>
+            </form>
+            <p id="otp-error-message" class="error-message">Invalid OTP. Try again.</p>
+        </div>
+
+        <!-- Step 4: User Details Form -->
+        <div id="step4" class="step">
+            <h2>Enter Details</h2>
+            <form id="register-form-step4">
+                <input type="text" id="fullname" placeholder="Full Name" required>
+                <input type="text" id="cardId" placeholder="Card ID" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                <select id="gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="api/script.js"></script>
+</body>
+</html>
